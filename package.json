@@ -1,0 +1,25 @@
+{
+  "name": "ping-pong",
+  "version": "0.0.0",
+  "description": "Ping pong web app to keep track of scores",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mozky/ping-pong.git"
+  },
+  "keywords": [
+    "ping",
+    "pong"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mozky/ping-pong/issues"
+  },
+  "homepage": "https://github.com/mozky/ping-pong#readme"
+}
