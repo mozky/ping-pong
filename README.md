@@ -3,8 +3,8 @@ Ping pong web app to keep track of matches
 
 ## Run development mode
 
-´npm start´
+`npm start`
 
 ## Run production mode
 
-´npm run build´
+`npm run build`
