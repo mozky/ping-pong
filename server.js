@@ -27,7 +27,7 @@ if (isDeveloping) {
       modules: false
     }
   });
-  app.use(favicon(__dirname + '/public/favicon-32x32.png'));
+  app.use(favicon(path.join(__dirname, '/public/favicon-32x32.png')));
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
   app.get('*', function response(req, res) {

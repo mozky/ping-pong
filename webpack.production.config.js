@@ -1,8 +1,10 @@
-var path = require('path');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var CleanPlugin = require('clean-webpack-plugin');
-var StatsPlugin = require('stats-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanPlugin = require('clean-webpack-plugin');
+const StatsPlugin = require('stats-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 
 module.exports = {
   entry: [
@@ -48,6 +50,9 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+    }),
+    new ExtractTextPlugin('public/style.css', {
+      allChunks: true
     })
   ],
   module: {
@@ -58,8 +63,8 @@ module.exports = {
         loader: 'babel?cacheDirectory'
       },
       {
-        test: /\.scss/,
-        loaders: ['style', 'css', 'sass']
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract('css!sass')
       }
     ]
   },

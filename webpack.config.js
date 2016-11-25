@@ -1,6 +1,8 @@
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 
 module.exports = {
   debug: true,
@@ -27,24 +29,28 @@ module.exports = {
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development')
+    }),
+    new ExtractTextPlugin('public/style.css', {
+      allChunks: true
     })
   ],
   module: {
     preLoaders: [
       {
         test: /\.jsx?$/,
+        exclude: /(node_modules|vendor)/,
         loader: 'eslint'
       }
     ],
     loaders: [
       {
         test: /\.jsx?$/,
-        exclude: /node_modules/,
+        exclude: /(node_modules|vendor)/,
         loader: 'babel?cacheDirectory'
       },
       {
-        test: /\.scss/,
-        loaders: ['style', 'css', 'sass']
+        test: /\.(scss|css)$/,
+        loader: ExtractTextPlugin.extract('css!sass')
       },
       {
         test: /\.html/,

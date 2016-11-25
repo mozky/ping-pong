@@ -1,5 +1,9 @@
 import React from 'react';
 import styles from './styles.scss';
+import Navbar from './Components/Navbar/Navbar.jsx';
+import '../vendor/material.min.js';
+import '../vendor/material.min.css';
+
 
 export default class App extends React.Component {
   constructor(props) {
@@ -9,7 +13,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div className={styles.app}>
-        Ping-pong
+        <Navbar />
       </div>
     );
   }
