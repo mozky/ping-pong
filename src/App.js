@@ -1,8 +1,11 @@
 import React from 'react';
-import styles from './styles.scss';
-import Navbar from './Components/Navbar/Navbar.jsx';
 import '../vendor/material.min.js';
 import '../vendor/material.min.css';
+import { Layout } from 'react-mdl';
+import Navbar from './Components/Navbar.jsx';
+// import SidePanel from './Components/SidePanel.jsx';
+import MainBody from './Components/MainBody.jsx';
+import './styles.scss';
 
 
 export default class App extends React.Component {
@@ -12,8 +15,12 @@ export default class App extends React.Component {
   }
   render() {
     return (
-      <div className={styles.app}>
-        <Navbar />
+      <div className="pp-app">
+        <Layout fixedHeader>
+          <Navbar />
+          {/* <SidePanel /> */}
+          <MainBody />
+        </Layout>
       </div>
     );
   }
