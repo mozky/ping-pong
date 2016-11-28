@@ -63,7 +63,7 @@ module.exports = {
         loader: 'babel?cacheDirectory'
       },
       {
-        test: /\.scss$/,
+        test: /\.(scss|css)$/,
         loader: ExtractTextPlugin.extract('css!sass')
       }
     ]

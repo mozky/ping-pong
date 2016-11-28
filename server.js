@@ -35,9 +35,9 @@ if (isDeveloping) {
     res.end();
   });
 } else {
-  app.use(express.static(path.join(__dirname, '/src')));
+  app.use(express.static(path.join(__dirname, '/builds')));
   app.get('*', function response(req, res) {
-    res.sendFile(path.join(__dirname, 'src/index.html'));
+    res.sendFile(path.join(__dirname, 'builds/index.html'));
   });
 }
 
