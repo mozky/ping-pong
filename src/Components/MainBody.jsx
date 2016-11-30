@@ -1,14 +1,26 @@
 import React from 'react';
-import { Content } from 'react-mdl';
+import { Content, Button } from 'react-mdl';
 import GamesFeed from './GamesFeed.jsx';
+import Game from './Game.jsx';
 import fb from '../firebase';
 
 export default class MainBody extends React.Component {
   constructor(props) {
     super(props);
+    this.startGame = this.startGame.bind(this);
+    this.endGame = this.endGame.bind(this);
     this.state = {
-      juegos: []
+      juegos: [],
+      isInGame: false
     };
+  }
+
+  startGame() {
+    this.setState({isInGame: true});
+  }
+
+  endGame() {
+    this.setState({isInGame: false});
   }
 
   componentWillMount() {
@@ -26,9 +38,21 @@ export default class MainBody extends React.Component {
   }
 
   render() {
+    const isInGame = this.state.isInGame;
+
     return (
       <Content component="main" className="react-mdl-layout__tab-panel">
-        <GamesFeed />
+        {isInGame ? (
+          <div>
+            <Button onClick={this.endGame}>End Game</Button>
+            <Game />
+          </div>
+        ) : (
+          <div>
+            <Button onClick={this.startGame}>Start Game</Button>
+            <GamesFeed />
+          </div>
+        )}
       </Content>
     );
   }
