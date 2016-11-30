@@ -46,6 +46,10 @@ if (isDeveloping) {
   });
 }
 
+app.use(function (req, res, next) {
+  res.status(404).send('TODO: 404 Page')
+})
+
 app.listen(port, '0.0.0.0', function onStart(err) {
   if (err) {
     console.log(err);
