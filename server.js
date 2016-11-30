@@ -30,13 +30,18 @@ if (isDeveloping) {
   app.use(favicon(path.join(__dirname, '/public/favicon-32x32.png')));
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
-  app.get('*', function response(req, res) {
+  app.get('/', function response(req, res) {
     res.write(middleware.fileSystem.readFileSync(path.join(__dirname, 'src/index.html')));
+    res.end();
+  });
+  app.get('/game/:player', function (req, res) {
+    console.log(req.params);
+    res.send(req.params);
     res.end();
   });
 } else {
   app.use(express.static(path.join(__dirname, '/builds')));
-  app.get('*', function response(req, res) {
+  app.get('/', function response(req, res) {
     res.sendFile(path.join(__dirname, 'builds/index.html'));
   });
 }
