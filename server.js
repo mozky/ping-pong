@@ -7,6 +7,7 @@ const webpackMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const config = require('./webpack.config.js');
 const favicon = require('serve-favicon');
+// const GameController = require('./src/Controllers/GameController');
 
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
@@ -34,10 +35,29 @@ if (isDeveloping) {
     res.write(middleware.fileSystem.readFileSync(path.join(__dirname, 'src/index.html')));
     res.end();
   });
-  app.get('/game/:player', function (req, res) {
+
+  app.route('/games')
+  .get(function(req, res) {
     console.log(req.params);
-    res.send(req.params);
-    res.end();
+    res.send('Get games');
+  })
+  .post(function(req, res) {
+    console.log(req.params);
+    res.send('Add new game, should return gameId');
+  });
+
+  app.route('/game/:idGame')
+  .get(function(req, res) {
+    console.log(req.params);
+    res.send('Get game info');
+  })
+  .post(function(req, res) {
+    console.log(req.params);
+    res.send('Post info to game');
+  })
+  .put(function(req, res) {
+    console.log(req.params);
+    res.send('Update info of game');
   });
 } else {
   app.use(express.static(path.join(__dirname, '/builds')));
@@ -46,9 +66,9 @@ if (isDeveloping) {
   });
 }
 
-app.use(function (req, res, next) {
-  res.status(404).send('TODO: 404 Page')
-})
+app.use(function(req, res) {
+  res.status(404).send('TODO: 404 Page');
+});
 
 app.listen(port, '0.0.0.0', function onStart(err) {
   if (err) {
