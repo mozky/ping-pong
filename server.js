@@ -7,6 +7,7 @@ const webpackMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const config = require('./webpack.config.js');
 const favicon = require('serve-favicon');
+const apiRoutes = require('./api/routes.js');
 
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
@@ -34,25 +35,23 @@ if (isDeveloping) {
     res.write(middleware.fileSystem.readFileSync(path.join(__dirname, 'src/index.html')));
     res.end();
   });
-  app.get('/game/:player', function (req, res) {
-    console.log(req.params);
-    res.send(req.params);
-    res.end();
-  });
+  app.use('/api', apiRoutes);
 } else {
+  // TODO: PRODUCTION NOT YET IMPLEMENTED
+  app.use('/api', apiRoutes);
   app.use(express.static(path.join(__dirname, '/builds')));
   app.get('/', function response(req, res) {
     res.sendFile(path.join(__dirname, 'builds/index.html'));
   });
 }
 
-app.use(function (req, res, next) {
-  res.status(404).send('TODO: 404 Page')
-})
+app.use(function(req, res) {
+  res.status(404).send('TODO: 404 Page');
+});
 
 app.listen(port, '0.0.0.0', function onStart(err) {
   if (err) {
     console.log(err);
   }
-  console.info('==> 🌎 Listening on port %s. Open up http://0.0.0.0:%s/ in your browser.', port, port);
+  console.info('🌎 Listening on port %s. Open up http://0.0.0.0:%s/ in your browser.', port, port);
 });
