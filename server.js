@@ -7,7 +7,7 @@ const webpackMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const config = require('./webpack.config.js');
 const favicon = require('serve-favicon');
-// const GameController = require('./src/Controllers/GameController');
+const apiRoutes = require('./api/routes.js');
 
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
@@ -35,31 +35,10 @@ if (isDeveloping) {
     res.write(middleware.fileSystem.readFileSync(path.join(__dirname, 'src/index.html')));
     res.end();
   });
-
-  app.route('/games')
-  .get(function(req, res) {
-    console.log(req.params);
-    res.send('Get games');
-  })
-  .post(function(req, res) {
-    console.log(req.params);
-    res.send('Add new game, should return gameId');
-  });
-
-  app.route('/game/:idGame')
-  .get(function(req, res) {
-    console.log(req.params);
-    res.send('Get game info');
-  })
-  .post(function(req, res) {
-    console.log(req.params);
-    res.send('Post info to game');
-  })
-  .put(function(req, res) {
-    console.log(req.params);
-    res.send('Update info of game');
-  });
+  app.use('/api', apiRoutes);
 } else {
+  // TODO: PRODUCTION NOT YET IMPLEMENTED
+  app.use('/api', apiRoutes);
   app.use(express.static(path.join(__dirname, '/builds')));
   app.get('/', function response(req, res) {
     res.sendFile(path.join(__dirname, 'builds/index.html'));
@@ -74,5 +53,5 @@ app.listen(port, '0.0.0.0', function onStart(err) {
   if (err) {
     console.log(err);
   }
-  console.info('==> 🌎 Listening on port %s. Open up http://0.0.0.0:%s/ in your browser.', port, port);
+  console.info('🌎 Listening on port %s. Open up http://0.0.0.0:%s/ in your browser.', port, port);
 });
