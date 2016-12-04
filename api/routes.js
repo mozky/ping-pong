@@ -1,6 +1,8 @@
 const routes = require('express').Router();
 const GameController = require('./Controllers/GameController');
 
+// TODO: Add better error handlings
+
 const GC = new GameController();
 
 routes.use(function timeLog(req, res, next) {
@@ -21,9 +23,13 @@ routes.get('/games', (req, res) => {
   });
 });
 
-routes.post('/games', (req, res) => {
-  console.log(req.params);
-  res.send(GC.addGame());
+routes.post('/game', (req, res) => {
+  GC.addGame(req.body).then(function(response) {
+    res.status(200).send(response);
+  }, function(error) {
+    console.error('API Error ->', req.method, req.url, '@', new Date(), error);
+    res.status(503).send('Bad Request');
+  });
 });
 
 routes.get('/game/:idGame', (req, res) => {
@@ -36,7 +42,12 @@ routes.get('/game/:idGame', (req, res) => {
 });
 
 routes.put('/game/:idGame', function(req, res) {
-  res.send(GC.updateGame(req.params, req.query));
+  GC.updateGame(req.params, req.query).then(function(response) {
+    res.status(200).send(response);
+  }, function(error) {
+    console.error('API Error ->', req.method, req.url, '@', new Date(), error);
+    res.status(503).send('Bad Request');
+  });
 });
 
 module.exports = routes;

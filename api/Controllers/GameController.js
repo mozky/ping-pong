@@ -33,15 +33,18 @@ class GameController {
     });
   }
 
-  addGame() {
-    const gameId = this.db.push();
-    gameId.set({
-      createTime: new Date(),
-      tableId: 1,
-      blue: 'foo',
-      red: 'bar'
+  addGame(body) {
+    const that = this;
+    return new Promise(function(resolve, reject) {
+      const gameId = that.db.ref('games').push();
+      body['createTime'] = new Date().toISOString();
+      gameId.set(body);
+      if (gameId.key) {
+        resolve(gameId.key);
+      } else {
+        reject(Error('Firebase addGame() error'));
+      }
     });
-    return gameId.key;
   }
 
   getGame(params) {
@@ -53,19 +56,25 @@ class GameController {
             [res.key]: res.val()
           });
         } else {
-          reject(Error('Network error'));
+          reject(Error('Firebase getGame() error'));
         }
       });
     });
   }
 
   updateGame(params, query) {
-    query['updateTime'] = new Date();
-    const gameRef = this.db.child(params.idGame);
-    gameRef.update(query);
-    return gameRef.key;
+    const that = this;
+    return new Promise(function(resolve, reject) {
+      query['updateTime'] = new Date().toISOString();
+      const gameRef = that.db.ref('games').child(params.idGame);
+      gameRef.update(query);
+      if (gameRef.key) {
+        resolve(gameRef.key);
+      } else {
+        reject(Error('Firebase updateGame() error'));
+      }
+    });
   }
-
 }
 
 module.exports = GameController;

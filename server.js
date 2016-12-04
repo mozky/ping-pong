@@ -8,7 +8,7 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 const config = require('./webpack.config.js');
 const favicon = require('serve-favicon');
 const apiRoutes = require('./api/routes.js');
-
+const bodyParser = require('body-parser');
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = isDeveloping ? 3000 : process.env.PORT;
@@ -28,6 +28,10 @@ if (isDeveloping) {
       modules: false
     }
   });
+  app.use(bodyParser.json());       // to support JSON-encoded bodies
+  app.use(bodyParser.urlencoded({   // to support URL-encoded bodies
+    extended: true
+  }));
   app.use(favicon(path.join(__dirname, '/public/favicon-32x32.png')));
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
