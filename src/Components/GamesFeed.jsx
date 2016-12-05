@@ -7,7 +7,8 @@ export default class GamesFeed extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      juegos: []
+      juegos: [],
+      gamesBind: null
     };
   }
 
@@ -18,10 +19,20 @@ export default class GamesFeed extends React.Component {
      * Firebase endpoint changes.
      */
 
-    fb.bindToState('games', {
+    const gamesBind = fb.bindToState('games', {
       context: this,
       state: 'juegos',
       asArray: true
+    });
+    this.setState({
+      gamesBind: gamesBind
+    });
+  }
+
+  componentWillUnmount() {
+    fb.removeBinding(this.state.gamesBind);
+    this.setState({
+      gamesBind: null
     });
   }
 

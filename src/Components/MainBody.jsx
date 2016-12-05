@@ -1,7 +1,7 @@
 import React from 'react';
 import { Content, Button } from 'react-mdl';
 import GamesFeed from './GamesFeed.jsx';
-import Game from './Game.jsx';
+import GameContainer from './GameContainer.jsx';
 import fb from '../firebase';
 
 export default class MainBody extends React.Component {
@@ -11,7 +11,7 @@ export default class MainBody extends React.Component {
     this.endGame = this.endGame.bind(this);
     this.state = {
       juegos: [],
-      isInGame: false
+      isInGame: true
     };
   }
 
@@ -44,8 +44,8 @@ export default class MainBody extends React.Component {
       <Content component="main" className="react-mdl-layout__tab-panel">
         {isInGame ? (
           <div>
-            <Button onClick={this.endGame}>End Game</Button>
-            <Game />
+            <Button onClick={this.endGame}>Games Feed</Button>
+            <GameContainer />
           </div>
         ) : (
           <div>

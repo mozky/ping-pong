@@ -43,6 +43,9 @@ module.exports = {
       }
     ],
     loaders: [
+      { test: /\.json$/,
+        loader: 'json-loader'
+      },
       {
         test: /\.jsx?$/,
         exclude: /(node_modules|vendor)/,
@@ -61,5 +64,11 @@ module.exports = {
         loader: 'url?limit=10000'
       }
     ]
+  },
+  node: {
+    console: true,
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty'
   }
 };

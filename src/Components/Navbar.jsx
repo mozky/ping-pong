@@ -8,14 +8,13 @@ export default class Navbar extends React.Component {
   }
   render() {
     return (
-      <Header title={
-        <span><strong>ping-pong</strong><small style={{ color: '#ddd' }}> - alpha</small></span>
+      <Header style={{backgroundColor: '#424242'}} title={
+        <span><strong>ping-pong</strong><small style={{color: '#ddd'}}> - alpha</small></span>
       }>
         <Navigation>
-          <a href="#">Link</a>
-          <a href="#">Link</a>
-          <a href="#">Link</a>
-          <a href="#">Link</a>
+          <a href="#">Stats</a>
+          <a href="#">Backroom</a>
+          <a href="#">Contact</a>
         </Navigation>
       </Header>
     );

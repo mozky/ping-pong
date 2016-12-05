@@ -1,22 +1,47 @@
 import React from 'react';
-import { Card, CardTitle, CardText, CardActions, IconButton, CardMenu, Button } from 'react-mdl';
+import { Button } from 'react-mdl';
 
 export default class Game extends React.Component {
+  constructor(props) {
+    super(props);
+    this.redPoint = this.redPoint.bind(this);
+    this.bluePoint = this.bluePoint.bind(this);
+  }
+
+  redPoint() {
+    this.props.handleRedPoint();
+  }
+
+  bluePoint() {
+    this.props.handleBluePoint();
+  }
+
   render() {
+    if (this.props.game.redScore !== undefined) {
+      return (
+        <div>
+          <h1>{this.props.red} vs {this.props.blue}</h1>
+          <h1>{this.props.game.redScore} - {this.props.game.blueScore}</h1>
+          <Button onClick={this.redPoint}>Red +</Button>
+          <Button onClick={this.bluePoint}>Blue +</Button>
+        </div>
+      );
+    }
     return (
-      <Card shadow={0} style={{width: '512px', margin: 'auto'}}>
-        <CardTitle style={{color: '#fff', height: '176px', background: 'url(http://www.getmdl.io/assets/demos/welcome_card.jpg) center / cover'}}>Welcome</CardTitle>
-        <CardText>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Mauris sagittis pellentesque lacus eleifend lacinia...
-        </CardText>
-        <CardActions border>
-          <Button colored>Get Started</Button>
-        </CardActions>
-        <CardMenu style={{color: '#fff'}}>
-          <IconButton name="share" />
-        </CardMenu>
-      </Card>
+      <div>
+        <h1>{this.props.red} vs {this.props.blue}</h1>
+        <h1>TODO: Poner Spinner</h1>
+      </div>
     );
   }
 }
+
+Game.propTypes = {
+  red: React.PropTypes.string.isRequired,
+  blue: React.PropTypes.string.isRequired,
+  game: React.PropTypes.object,
+  redScore: React.PropTypes.string,
+  blueScore: React.PropTypes.string,
+  handleRedPoint: React.PropTypes.func.isRequired,
+  handleBluePoint: React.PropTypes.func.isRequired
+};
