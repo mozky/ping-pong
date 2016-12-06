@@ -41,13 +41,13 @@ export default class GamesFeed extends React.Component {
   }
 
   render() {
-    var GameCards = this.state.juegos.map((game, index) => {
+    let GameCards = this.state.juegos.map((game, index) => {
       return (
         <Grid key={index} component="section" className="section--center" shadow={0} noSpacing>
           <Cell className={'gameFeedCard'} component={Card} col={6}
             style={{backgroundColor: '#EF5350'}}>
             <CardText style={{width: '100%', textAlign: 'center'}}>
-              <h1>{game.redScore}</h1>
+              <h1>{game.redSetsScore}</h1>
               <h3>{game.red}</h3>
             </CardText>
             {/* <CardActions style={{width: '100%', textAlign: 'center'}}>
@@ -57,7 +57,7 @@ export default class GamesFeed extends React.Component {
           <Cell className={'game-feed-card'} component={Card} col={6}
             style={{backgroundColor: '#5C6BC0'}}>
             <CardText style={{width: '100%', textAlign: 'center'}}>
-              <h1>{game.blueScore}</h1>
+              <h1>{game.blueSetsScore}</h1>
               <h3>{game.blue}</h3>
             </CardText>
             {/* <CardActions style={{width: '100%', textAlign: 'center'}}>
@@ -76,7 +76,7 @@ export default class GamesFeed extends React.Component {
           <span className="visuallyhidden">Add</span>
         </FABButton>
         <div className="react-mdl-layout__tab-panel">
-          { GameCards}
+          { GameCards }
         </div>
       </div>
     );

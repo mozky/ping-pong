@@ -44,19 +44,25 @@ export default class GameContainer extends React.Component {
     this.setState({blueReady: (value === 'true')});
   }
 
-  handleRedPoint() {
-    this.setState({game:
-    {
-      redScore: this.state.game.redScore + 1
-    }
+  handleRedPoint(set) {
+    set = 0;
+    this.setState({
+      game: {
+        sets[set]: {
+          redScore: this.state.game.sets[set].redScore + 1
+        }
+      }
     });
   }
 
-  handleBluePoint() {
-    this.setState({game:
-    {
-      blueScore: this.state.game.blueScore + 1
-    }
+  handleBluePoint(set) {
+    set = 0;
+    this.setState({
+      game: {
+        sets[set]: {
+          blueScore: this.state.game.sets[set].blueScore + 1
+        }
+      }
     });
   }
 
@@ -64,7 +70,27 @@ export default class GameContainer extends React.Component {
     const that = this;
     request.post(
       'http://localhost:3000/api/game',
-      { json: { red: this.state.red, blue: this.state.blue, redScore: 0, blueScore: 0 } },
+      { json: {
+        red: this.state.red,
+        blue: this.state.blue,
+        redSetsScore: 0,
+        blueSetsScore: 0,
+        sets: [
+          {
+            redScore: 0,
+            blueScore: 0
+          },
+          {
+            redScore: 0,
+            blueScore: 0
+          },
+          {
+            redScore: 0,
+            blueScore: 0
+          }
+        ]
+      }
+      },
       function(error, response, body) {
         if (!error && response.statusCode === 200) {
           // We update the state with the new gameId
