@@ -75,9 +75,20 @@ export default class NewGame extends React.Component {
     return (
       <Grid className="newGame">
         <Cell col={6}>
-          <Card shadow={3} style={{width: '80%', height: '50vh', margin: 'auto', backgroundColor: '#EF5350'}}>
-            <CardTitle expand style={{color: '#fff', background: 'url(http://www.getmdl.io/assets/demos/dog.png) bottom right 15% no-repeat #FFCDD2'}}>Rank: ??</CardTitle>
-            <CardText style={{width: '100%', borderColor: 'rgba(255, 255, 255, 0.2)', display: 'flex', boxSizing: 'border-box', alignItems: 'center', color: '#fff'}}>
+          <Card shadow={3}
+            style={{width: '80%', height: '50vh', margin: 'auto', backgroundColor: '#EF5350'}}>
+            <CardTitle expand style={{
+              color: '#fff',
+              background: 'url(http://www.getmdl.io/assets/demos/dog.png) bottom right 15% no-repeat #FFCDD2'}}>
+              Rank: ??
+            </CardTitle>
+            <CardText style={{
+              width: '100%',
+              borderColor: 'rgba(255, 255, 255, 0.2)',
+              display: 'flex',
+              boxSizing: 'border-box',
+              alignItems: 'center',
+              color: '#fff'}}>
               <IconButton name="navigate_before"
                 onClick={() => this.changePlayer('red', 'prev')} />
               <div className="mdl-layout-spacer" />
@@ -98,18 +109,38 @@ export default class NewGame extends React.Component {
               <IconButton name="navigate_next"
                 onClick={() => this.changePlayer('red', 'next')} />
             </CardText>
-            <CardActions border style={{borderColor: 'rgba(255, 255, 255, 0.2)', display: 'flex', boxSizing: 'border-box', alignItems: 'center', backgroundColor: '#B71C1C'}}>
-              <Button value={!redReady} disabled={redReady} onClick={this.redToggle} style={{color: '#fff', width: '100%'}}>{redReady ? 'Waiting for blue...' : 'Click table button to confirm...'}</Button>
+            <CardActions border
+              style={{
+                borderColor: 'rgba(255, 255, 255, 0.2)',
+                display: 'flex',
+                boxSizing: 'border-box',
+                alignItems: 'center',
+                backgroundColor: '#B71C1C'}}>
+              <Button value={!redReady} disabled={redReady} onClick={this.redToggle}
+                style={{color: '#fff', width: '100%'}}>
+                {redReady ? 'Waiting for blue...' : 'Click table button to confirm...'}
+              </Button>
             </CardActions>
             <CardMenu style={{color: '#fff'}}>
-              <IconButton value={!redReady} onClick={this.redToggle} style={{ display: redReady ? 'inline' : 'none' }} name="close" />
+              <IconButton value={!redReady} onClick={this.redToggle}
+                style={{ display: redReady ? 'inline' : 'none' }} name="close" />
             </CardMenu>
           </Card>
         </Cell>
         <Cell col={6}>
-          <Card shadow={3} style={{width: '80%', height: '50vh', margin: 'auto', backgroundColor: '#5C6BC0'}}>
-            <CardTitle expand style={{color: '#fff', background: 'url(http://www.getmdl.io/assets/demos/welcome_card.jpg) bottom right 15% no-repeat #C5CAE9'}}>Rank: ??</CardTitle>
-            <CardText style={{width: '100%', borderColor: 'rgba(255, 255, 255, 0.2)', display: 'flex', boxSizing: 'border-box', alignItems: 'center', color: '#fff'}}>
+          <Card shadow={3}
+            style={{width: '80%', height: '50vh', margin: 'auto', backgroundColor: '#5C6BC0'}}>
+            <CardTitle expand style={{color: '#fff',
+              background: 'url(http://www.getmdl.io/assets/demos/welcome_card.jpg) bottom right 15% no-repeat #C5CAE9'}}>
+              Rank: ??
+            </CardTitle>
+            <CardText style={{
+              width: '100%',
+              borderColor: 'rgba(255, 255, 255, 0.2)',
+              display: 'flex',
+              boxSizing: 'border-box',
+              alignItems: 'center',
+              color: '#fff'}}>
               <IconButton name="navigate_before"
                 onClick={() => this.changePlayer('blue', 'prev')} />
               <div className="mdl-layout-spacer" />
@@ -130,11 +161,20 @@ export default class NewGame extends React.Component {
               <IconButton name="navigate_next"
                 onClick={() => this.changePlayer('blue', 'next')} />
             </CardText>
-            <CardActions border style={{borderColor: 'rgba(255, 255, 255, 0.2)', display: 'flex', boxSizing: 'border-box', alignItems: 'center', backgroundColor: '#1A237E'}}>
-              <Button value={!blueReady} disabled={blueReady} onClick={this.blueToggle} style={{color: '#fff', width: '100%'}}>{blueReady ? 'Waiting for red...' : 'Click table button to confirm...'}</Button>
+            <CardActions border style={{
+              borderColor: 'rgba(255, 255, 255, 0.2)',
+              display: 'flex',
+              boxSizing: 'border-box',
+              alignItems: 'center',
+              backgroundColor: '#1A237E'}}>
+              <Button value={!blueReady} disabled={blueReady} onClick={this.blueToggle}
+                style={{color: '#fff', width: '100%'}}>
+                {blueReady ? 'Waiting for red...' : 'Click table button to confirm...'}
+              </Button>
             </CardActions>
             <CardMenu style={{color: '#fff'}}>
-              <IconButton value={!blueReady} onClick={this.blueToggle} style={{ display: blueReady ? 'inline' : 'none' }} name="close" />
+              <IconButton value={!blueReady} onClick={this.blueToggle}
+                style={{ display: blueReady ? 'inline' : 'none' }} name="close" />
             </CardMenu>
           </Card>
         </Cell>

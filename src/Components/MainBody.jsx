@@ -1,5 +1,5 @@
 import React from 'react';
-import { Content, Button } from 'react-mdl';
+import { Content } from 'react-mdl';
 import GamesFeed from './GamesFeed.jsx';
 import GameContainer from './GameContainer.jsx';
 import fb from '../firebase';
@@ -7,7 +7,7 @@ import fb from '../firebase';
 export default class MainBody extends React.Component {
   constructor(props) {
     super(props);
-    this.startGame = this.startGame.bind(this);
+    this.newGame = this.newGame.bind(this);
     this.endGame = this.endGame.bind(this);
     this.state = {
       juegos: [],
@@ -15,7 +15,7 @@ export default class MainBody extends React.Component {
     };
   }
 
-  startGame() {
+  newGame() {
     this.setState({isInGame: true});
   }
 
@@ -41,15 +41,15 @@ export default class MainBody extends React.Component {
     const isInGame = this.state.isInGame;
 
     return (
-      <Content component="main" className="react-mdl-layout__tab-panel">
+      <Content component="main" className="react-mdl-layout__tab-panel"
+        style={{backgroundColor: '#BDBDBD', color: '#fff'}} >
         {isInGame ? (
           <div>
             <GameContainer endGame={this.endGame} />
           </div>
         ) : (
           <div>
-            <Button style={{width: '100%', padding: '0 5%'}} onClick={this.startGame}>Start Game</Button>
-            <GamesFeed />
+            <GamesFeed newGame={this.newGame} />
           </div>
         )}
       </Content>

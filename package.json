@@ -1,6 +1,6 @@
 {
   "name": "ping-pong",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "Ping pong web app to keep track of scores",
   "main": "server.js",
   "dependencies": {

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Grid, Cell, CardText, CardActions,
-  Button, Card, IconButton, MenuItem, Menu } from 'react-mdl';
+import { Grid, Cell, CardText, CardActions, Button, Card } from 'react-mdl';
 
 export default class Game extends React.Component {
   constructor(props) {
@@ -26,27 +25,30 @@ export default class Game extends React.Component {
     if (this.props.game.redScore !== undefined) {
       return (
         <Grid component="section" className="section--center" shadow={0} noSpacing>
-          <Cell component="header" col={3} tablet={3} phone={4} style={{backgroundColor: '#EF5350'}}>
-            <Button onClick={this.redPoint}>+</Button>
+          <Cell component="header" col={3} tablet={3} phone={4}
+            style={{backgroundColor: '#EF5350'}}>
+            <Button onClick={this.redPoint}
+              style={{fontSize: '3em', color: '#fff', width: '100%', height: '100%'}}>
+              +
+            </Button>
           </Cell>
-          <Cell className={'REMOVE'} component={Card} col={6} tablet={6} phone={4}>
+          <Cell className={'REMOVE'} component={Card} col={6} tablet={6} phone={4}
+            style={{backgroundColor: '#616161', color: '#fff'}}>
             <CardText style={{textAlign: 'center', fontStretch: 'expanded'}}>
               <h1>{this.props.game.redScore} &nbsp;&nbsp;&nbsp; {this.props.game.blueScore}</h1>
               <h3>{this.props.red} vs {this.props.blue}</h3>
             </CardText>
             <CardActions style={{textAlign: 'center'}}>
-              <Button onClick={this.endGame}>End Game</Button>
+              <Button onClick={this.endGame} style={{color: '#fff'}}>End Game</Button>
             </CardActions>
           </Cell>
-          <Cell component="header" col={3} tablet={3} phone={4} style={{backgroundColor: '#5C6BC0'}}>
-            <Button onClick={this.bluePoint}>+</Button>
+          <Cell component="header" col={3} tablet={3} phone={4}
+            style={{backgroundColor: '#5C6BC0'}}>
+            <Button onClick={this.bluePoint}
+              style={{fontSize: '3em', color: '#fff', width: '100%', height: '100%'}}>
+              +
+            </Button>
           </Cell>
-          <IconButton name="more_vert" id="btn1" ripple />
-          <Menu target="btn1" align="right" valign="bottom">
-            <MenuItem disabled>Lorem</MenuItem>
-            <MenuItem disabled>Ipsum</MenuItem>
-            <MenuItem disabled>Dolor</MenuItem>
-          </Menu>
         </Grid>
         /* <div>
 

@@ -1,15 +1,19 @@
 import React from 'react';
-import { Grid, Cell, CardText, CardActions, IconButton, Menu,
-  MenuItem, Button, Card } from 'react-mdl';
+import { Grid, Cell, CardText, Card, FABButton, Icon } from 'react-mdl';
 import fb from '../firebase';
 
 export default class GamesFeed extends React.Component {
   constructor(props) {
     super(props);
+    this.newGame = this.newGame.bind(this);
     this.state = {
       juegos: [],
       gamesBind: null
     };
+  }
+
+  newGame() {
+    this.props.newGame();
   }
 
   componentWillMount() {
@@ -40,30 +44,45 @@ export default class GamesFeed extends React.Component {
     var GameCards = this.state.juegos.map((game, index) => {
       return (
         <Grid key={index} component="section" className="section--center" shadow={0} noSpacing>
-          <Cell className={'REMOVE'} component={Card} col={12}>
-            <CardText>
-              <h4> Game #{index}</h4>
-              <p>Player 1: { game.p1 }</p>
-              <p>Player 2: { game.p2 }</p>
+          <Cell className={'gameFeedCard'} component={Card} col={6}
+            style={{backgroundColor: '#EF5350'}}>
+            <CardText style={{width: '100%', textAlign: 'center'}}>
+              <h1>{game.redScore}</h1>
+              <h3>{game.red}</h3>
             </CardText>
-            <CardActions>
-              <Button href="#">See full game</Button>
-            </CardActions>
+            {/* <CardActions style={{width: '100%', textAlign: 'center'}}>
+              <Button>{game.red}</Button>
+            </CardActions> */}
           </Cell>
-          <IconButton name="more_vert" id="btn1" ripple />
-          <Menu target="btn1" align="right" valign="bottom">
-            <MenuItem>Lorem</MenuItem>
-            <MenuItem disabled>Ipsum</MenuItem>
-            <MenuItem>Dolor</MenuItem>
-          </Menu>
+          <Cell className={'game-feed-card'} component={Card} col={6}
+            style={{backgroundColor: '#5C6BC0'}}>
+            <CardText style={{width: '100%', textAlign: 'center'}}>
+              <h1>{game.blueScore}</h1>
+              <h3>{game.blue}</h3>
+            </CardText>
+            {/* <CardActions style={{width: '100%', textAlign: 'center'}}>
+              <Button>{game.blue}</Button>
+            </CardActions> */}
+          </Cell>
         </Grid>
       );
     });
 
     return (
       <div>
-        { GameCards }
+        <FABButton ripple colored accent className="mdl-shadow--4dp"
+          onClick={this.newGame} id="add">
+          <Icon name="add" />
+          <span className="visuallyhidden">Add</span>
+        </FABButton>
+        <div className="react-mdl-layout__tab-panel">
+          { GameCards}
+        </div>
       </div>
     );
   }
 }
+
+GamesFeed.propTypes = {
+  newGame: React.PropTypes.func.isRequired
+};

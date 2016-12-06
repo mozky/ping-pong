@@ -17,6 +17,7 @@ export default class GameContainer extends React.Component {
     this.startGame = this.startGame.bind(this);
     this.endGame = this.endGame.bind(this);
     this.state = {
+      inGame: false,
       game: {},
       gameId: null,
       gameBind: null,
@@ -85,6 +86,7 @@ export default class GameContainer extends React.Component {
   endGame() {
     fb.removeBinding(this.state.gameBind);
     this.setState({
+      inGame: false,
       gameId: null,
       gameBind: null,
       redReady: false,
@@ -94,8 +96,12 @@ export default class GameContainer extends React.Component {
   }
 
   componentDidUpdate() {
-    if ((this.state.gameId === null) && this.state.redReady && this.state.blueReady) {
+    if ((this.state.gameId === null)
+    && (this.state.inGame === false)
+    && this.state.redReady
+    && this.state.blueReady) {
       this.startGame();
+      this.setState({inGame: true});
     }
   }
 
