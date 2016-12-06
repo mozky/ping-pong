@@ -11,7 +11,7 @@ export default class MainBody extends React.Component {
     this.endGame = this.endGame.bind(this);
     this.state = {
       juegos: [],
-      isInGame: true
+      isInGame: false
     };
   }
 
@@ -44,12 +44,11 @@ export default class MainBody extends React.Component {
       <Content component="main" className="react-mdl-layout__tab-panel">
         {isInGame ? (
           <div>
-            <Button onClick={this.endGame}>Games Feed</Button>
-            <GameContainer />
+            <GameContainer endGame={this.endGame} />
           </div>
         ) : (
           <div>
-            <Button onClick={this.startGame}>Start Game</Button>
+            <Button style={{width: '100%', padding: '0 5%'}} onClick={this.startGame}>Start Game</Button>
             <GamesFeed />
           </div>
         )}

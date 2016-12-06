@@ -40,7 +40,7 @@ export default class GamesFeed extends React.Component {
     var GameCards = this.state.juegos.map((game, index) => {
       return (
         <Grid key={index} component="section" className="section--center" shadow={0} noSpacing>
-          <Cell component={Card} col={12}>
+          <Cell className={'REMOVE'} component={Card} col={12}>
             <CardText>
               <h4> Game #{index}</h4>
               <p>Player 1: { game.p1 }</p>

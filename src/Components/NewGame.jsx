@@ -76,7 +76,7 @@ export default class NewGame extends React.Component {
       <Grid className="newGame">
         <Cell col={6}>
           <Card shadow={3} style={{width: '80%', height: '50vh', margin: 'auto', backgroundColor: '#EF5350'}}>
-            <CardTitle expand style={{color: '#fff', background: 'url(http://www.getmdl.io/assets/demos/dog.png) bottom right 15% no-repeat #FFCDD2'}}>Rank: 1</CardTitle>
+            <CardTitle expand style={{color: '#fff', background: 'url(http://www.getmdl.io/assets/demos/dog.png) bottom right 15% no-repeat #FFCDD2'}}>Rank: ??</CardTitle>
             <CardText style={{width: '100%', borderColor: 'rgba(255, 255, 255, 0.2)', display: 'flex', boxSizing: 'border-box', alignItems: 'center', color: '#fff'}}>
               <IconButton name="navigate_before"
                 onClick={() => this.changePlayer('red', 'prev')} />
@@ -108,7 +108,7 @@ export default class NewGame extends React.Component {
         </Cell>
         <Cell col={6}>
           <Card shadow={3} style={{width: '80%', height: '50vh', margin: 'auto', backgroundColor: '#5C6BC0'}}>
-            <CardTitle expand style={{color: '#fff', background: 'url(http://www.getmdl.io/assets/demos/welcome_card.jpg) bottom right 15% no-repeat #C5CAE9'}}>Rank: 3</CardTitle>
+            <CardTitle expand style={{color: '#fff', background: 'url(http://www.getmdl.io/assets/demos/welcome_card.jpg) bottom right 15% no-repeat #C5CAE9'}}>Rank: ??</CardTitle>
             <CardText style={{width: '100%', borderColor: 'rgba(255, 255, 255, 0.2)', display: 'flex', boxSizing: 'border-box', alignItems: 'center', color: '#fff'}}>
               <IconButton name="navigate_before"
                 onClick={() => this.changePlayer('blue', 'prev')} />

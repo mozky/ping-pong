@@ -1,12 +1,11 @@
 import React from 'react';
-import { Button } from 'react-mdl';
 import NewGame from './NewGame.jsx';
 import Game from './Game.jsx';
 import request from 'request';
 import fb from '../firebase';
 
 
-export default class GameContrainer extends React.Component {
+export default class GameContainer extends React.Component {
   constructor(props) {
     super(props);
     this.handleRedPlayerChange = this.handleRedPlayerChange.bind(this);
@@ -91,6 +90,7 @@ export default class GameContrainer extends React.Component {
       redReady: false,
       blueReady: false
     });
+    this.props.endGame();
   }
 
   componentDidUpdate() {
@@ -131,11 +131,15 @@ export default class GameContrainer extends React.Component {
               game={game}
               handleRedPoint={this.handleRedPoint}
               handleBluePoint={this.handleBluePoint}
+              endGame={this.endGame}
             />
-            <Button onClick={this.endGame}>End Game</Button>
           </div>
         )}
       </div>
     );
   }
 }
+
+GameContainer.propTypes = {
+  endGame: React.PropTypes.func.isRequired
+};
