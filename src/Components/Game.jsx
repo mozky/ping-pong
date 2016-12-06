@@ -25,7 +25,7 @@ export default class Game extends React.Component {
     let scores;
     if (this.props.game.sets !== undefined) {
       scores = this.props.game.sets.map((game, index) => {
-        if (index = this.props.game.currentSet) {
+        if (index === this.props.game.currentSet) {
           return (
             <div key={index} >
               <h1>{index}{game.redScore} &nbsp;&nbsp;&nbsp; {game.blueScore}</h1>

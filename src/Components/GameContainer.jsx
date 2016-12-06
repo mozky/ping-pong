@@ -46,21 +46,23 @@ export default class GameContainer extends React.Component {
 
   handleRedPoint(set) {
     set = 0;
-    this.setState({
-      game: {
-        sets[set]: {
-          redScore: this.state.game.sets[set].redScore + 1
-        }
-      }
-    });
+    let score = this.state.game.sets[set].redScore;
+    // this.setState({
+    //   game: {
+    //     sets[set]: {
+    //       redScore: this.state.game.sets[set].redScore + 1
+    //     }
+    //   }
+    // });
   }
 
   handleBluePoint(set) {
     set = 0;
+    let score = this.state.game.sets[set].blueScore;
     this.setState({
       game: {
-        sets[set]: {
-          blueScore: this.state.game.sets[set].blueScore + 1
+        sets[0]: {
+          blueScore: score + 1
         }
       }
     });
