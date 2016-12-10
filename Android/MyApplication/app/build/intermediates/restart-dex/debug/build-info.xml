@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<instant-run
+    abi="x86"
+    api-level="25"
+    density="420dpi"
+    format="8"
+    plugin-version="2.2.3"
+    timestamp="5884156064368"
+    token="-2331449063481739999"
+    verifier="COLD_SWAP_REQUESTED" >
+
+    <task
+        name="javac"
+        duration="0" />
+    <task
+        name="instant-run-dex"
+        duration="0" />
+    <task
+        name="instant-run-transform"
+        duration="0" />
+    <task
+        name="verifier"
+        duration="0" />
+
+    <build
+        timestamp="5716332988217"
+        verifier="FULL_BUILD_REQUESTED" >
+        <artifact
+            location="/Users/luis/LuisEvilCo/ping-pong/Android/MyApplication/app/build/outputs/apk/app-debug.apk"
+            type="MAIN" />
+    </build>
+    <build
+        timestamp="5860957372901"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="/Users/luis/LuisEvilCo/ping-pong/Android/MyApplication/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_9/classes.dex"
+            type="DEX" />
+    </build>
+    <build
+        timestamp="5884156064368"
+        verifier="COLD_SWAP_REQUESTED" />
+
+</instant-run>
