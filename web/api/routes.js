@@ -41,6 +41,23 @@ routes.get('/game/:idGame', (req, res) => {
   });
 });
 
+routes.post('/game/:idGame', (req, res) => {
+  GC.addSet(req.params, req.body).then(function(response) {
+    res.status(200).json(response);
+  }, function(error) {
+    console.error('API ERROR ->', req.method, req.url, '@', new Date(), error);
+  });
+});
+
+routes.put('/game/:idGame/set/:idSet', function(req, res) {
+  GC.markPoint(req.params, req.query).then(function(response) {
+    res.status(200).send(response);
+  }, function(error) {
+    console.error('API Error ->', req.method, req.url, '@', new Date(), error);
+    res.status(503).send('Bad Request');
+  });
+});
+
 routes.put('/game/:idGame', function(req, res) {
   GC.updateGame(req.params, req.query).then(function(response) {
     res.status(200).send(response);
@@ -49,5 +66,6 @@ routes.put('/game/:idGame', function(req, res) {
     res.status(503).send('Bad Request');
   });
 });
+
 
 module.exports = routes;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Cell, CardText, Card, FABButton, Icon } from 'react-mdl';
+import { Grid, Card, CardText, Cell, FABButton, Icon } from 'react-mdl';
 import fb from '../firebase';
 
 export default class GamesFeed extends React.Component {
@@ -42,28 +42,25 @@ export default class GamesFeed extends React.Component {
 
   render() {
     let GameCards = this.state.juegos.map((game, index) => {
-      return (
-        <Grid key={index} component="section" className="section--center" shadow={0} noSpacing>
-          <Cell className={'gameFeedCard'} component={Card} col={6}
+      let player;
+      let PlayersScore = [];
+      for (player in game.players) {
+        PlayersScore.push(
+          <Cell key={player} className={'gameFeedCard'} component={Card} col={6}
             style={{backgroundColor: '#EF5350'}}>
             <CardText style={{width: '100%', textAlign: 'center'}}>
-              <h1>{game.redSetsScore}</h1>
-              <h3>{game.red}</h3>
+              <h1>{player}</h1>
+              {/* <h3>{game.red}</h3> */}
             </CardText>
             {/* <CardActions style={{width: '100%', textAlign: 'center'}}>
               <Button>{game.red}</Button>
             </CardActions> */}
           </Cell>
-          <Cell className={'game-feed-card'} component={Card} col={6}
-            style={{backgroundColor: '#5C6BC0'}}>
-            <CardText style={{width: '100%', textAlign: 'center'}}>
-              <h1>{game.blueSetsScore}</h1>
-              <h3>{game.blue}</h3>
-            </CardText>
-            {/* <CardActions style={{width: '100%', textAlign: 'center'}}>
-              <Button>{game.blue}</Button>
-            </CardActions> */}
-          </Cell>
+        );
+      }
+      return (
+        <Grid key={index} component="section" className="section--center" shadow={0} noSpacing>
+          { PlayersScore }
         </Grid>
       );
     });

@@ -22,17 +22,17 @@ export default class Game extends React.Component {
   }
 
   render() {
-    let scores;
+    // let scores;
     if (this.props.game.sets !== undefined) {
-      scores = this.props.game.sets.map((game, index) => {
-        if (index === this.props.game.currentSet) {
-          return (
-            <div key={index} >
-              <h1>{index}{game.redScore} &nbsp;&nbsp;&nbsp; {game.blueScore}</h1>
-            </div>
-          );
-        }
-      });
+      // scores = this.props.game.sets.map((game, index) => {
+      //   if (index === this.props.game.currentSet) {
+      //     return (
+      //       <div key={index} >
+      //         <h1>{index}{game.redScore} &nbsp;&nbsp;&nbsp; {game.blueScore}</h1>
+      //       </div>
+      //     );
+      //   }
+      // });
 
       return (
         <Grid component="section" className="section--center" shadow={0} noSpacing>
@@ -46,8 +46,9 @@ export default class Game extends React.Component {
           <Cell className={'REMOVE'} component={Card} col={6} tablet={6} phone={4}
             style={{backgroundColor: '#616161', color: '#fff'}}>
             <CardText style={{textAlign: 'center', fontStretch: 'expanded'}}>
-              { scores }
-              <h3>{this.props.red} - {this.props.game.redSetsScore} vs {this.props.blue} - {this.props.game.blueSetsScore}</h3>
+              {/* { scores } */}
+              <h3>{this.props.red} - {this.props.set.redScore}
+                vs {this.props.blue} - {this.props.set.blueScore}</h3>
             </CardText>
             <CardActions style={{textAlign: 'center'}}>
               <Button onClick={this.endGame} style={{color: '#fff'}}>End Game</Button>
@@ -80,6 +81,7 @@ Game.propTypes = {
   red: React.PropTypes.string.isRequired,
   blue: React.PropTypes.string.isRequired,
   game: React.PropTypes.object,
+  set: React.PropTypes.object,
   handleRedPoint: React.PropTypes.func.isRequired,
   handleBluePoint: React.PropTypes.func.isRequired,
   endGame: React.PropTypes.func.isRequired

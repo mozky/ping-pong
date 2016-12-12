@@ -19,10 +19,13 @@ export default class GameContainer extends React.Component {
     this.state = {
       inGame: false,
       game: {},
+      set: {},
       gameId: null,
       gameBind: null,
-      red: 'guest',
-      blue: 'guest',
+      setId: null,
+      setBind: null,
+      red: 'redPlayer',
+      blue: 'bluePlayer',
       redReady: false,
       blueReady: false
     };
@@ -44,28 +47,34 @@ export default class GameContainer extends React.Component {
     this.setState({blueReady: (value === 'true')});
   }
 
-  handleRedPoint(set) {
-    set = 0;
-    let score = this.state.game.sets[set].redScore;
-    // this.setState({
-    //   game: {
-    //     sets[set]: {
-    //       redScore: this.state.game.sets[set].redScore + 1
-    //     }
-    //   }
-    // });
-  }
-
-  handleBluePoint(set) {
-    set = 0;
-    let score = this.state.game.sets[set].blueScore;
-    this.setState({
-      game: {
-        sets[0]: {
-          blueScore: score + 1
+  handleRedPoint() {
+    request.put(
+      'http://localhost:3000/api/game/' + this.state.gameId + '/set/' + this.state.setId,
+      { qs: {
+        player: 'red'
+      }
+      },
+      function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+          console.log('Response body', body);
         }
       }
-    });
+    );
+  }
+
+  handleBluePoint() {
+    request.put(
+      'http://localhost:3000/api/game/' + this.state.gameId + '/set/' + this.state.setId,
+      { qs: {
+        player: 'blue'
+      }
+      },
+      function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+          console.log('Response body', body);
+        }
+      }
+    );
   }
 
   startGame() {
@@ -73,26 +82,9 @@ export default class GameContainer extends React.Component {
     request.post(
       'http://localhost:3000/api/game',
       { json: {
-        red: this.state.red,
-        blue: this.state.blue,
-        redSetsScore: 0,
-        blueSetsScore: 0,
-        sets: [
-          {
-            redScore: 0,
-            blueScore: 0
-          },
-          {
-            redScore: 0,
-            blueScore: 0
-          },
-          {
-            redScore: 0,
-            blueScore: 0
-          }
-        ]
-      }
-      },
+        player: [that.state.red, that.state.blue],
+        table: 'this.state.table'
+      } },
       function(error, response, body) {
         if (!error && response.statusCode === 200) {
           // We update the state with the new gameId
@@ -106,6 +98,32 @@ export default class GameContainer extends React.Component {
             gameId: body,
             gameBind: gameBind
           });
+
+          // We create the first set...
+          request.post(
+            'http://localhost:3000/api/game/' + body,
+            { json: {
+              red: that.state.red,
+              blue: that.state.blue,
+              serves: 'red'
+            } },
+            function(error, response1, body1) {
+              if (!error && response1.statusCode === 200) {
+                // We update the state with the new setId
+                // We bind the set object from firebase with the state
+                const setBind = fb.syncState('sets/' + body1, {
+                  context: that,
+                  state: 'set',
+                  asArray: false
+                });
+                that.setState({
+                  setId: body1,
+                  setBind: setBind,
+                  currentSet: 0
+                });
+              }
+            }
+          );
         }
       }
     );
@@ -113,10 +131,13 @@ export default class GameContainer extends React.Component {
 
   endGame() {
     fb.removeBinding(this.state.gameBind);
+    fb.removeBinding(this.state.setBind);
     this.setState({
       inGame: false,
       gameId: null,
       gameBind: null,
+      setId: null,
+      setBind: null,
       redReady: false,
       blueReady: false
     });
@@ -138,6 +159,7 @@ export default class GameContainer extends React.Component {
     const red = this.state.red;
     const blue = this.state.blue;
     const game = this.state.game;
+    const set = this.state.set;
     const gameId = this.state.gameId;
     const redReady = this.state.redReady;
     const blueReady = this.state.blueReady;
@@ -163,6 +185,7 @@ export default class GameContainer extends React.Component {
               red={red}
               blue={blue}
               game={game}
+              set={set}
               handleRedPoint={this.handleRedPoint}
               handleBluePoint={this.handleBluePoint}
               endGame={this.endGame}
