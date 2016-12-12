@@ -56,7 +56,7 @@ export default class GameContainer extends React.Component {
       },
       function(error, response, body) {
         if (!error && response.statusCode === 200) {
-          console.log('Response body', body);
+          console.log(body);
         }
       }
     );
@@ -71,7 +71,7 @@ export default class GameContainer extends React.Component {
       },
       function(error, response, body) {
         if (!error && response.statusCode === 200) {
-          console.log('Response body', body);
+          console.log(body);
         }
       }
     );

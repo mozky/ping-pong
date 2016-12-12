@@ -23,7 +23,7 @@ export default class Game extends React.Component {
 
   render() {
     // let scores;
-    if (this.props.game.sets !== undefined) {
+    if (this.props.set.scores !== undefined) {
       // scores = this.props.game.sets.map((game, index) => {
       //   if (index === this.props.game.currentSet) {
       //     return (
@@ -47,8 +47,19 @@ export default class Game extends React.Component {
             style={{backgroundColor: '#616161', color: '#fff'}}>
             <CardText style={{textAlign: 'center', fontStretch: 'expanded'}}>
               {/* { scores } */}
-              <h3>{this.props.red} - {this.props.set.redScore}
-                vs {this.props.blue} - {this.props.set.blueScore}</h3>
+              <Grid noSpacing>
+                <Cell col={5}>
+                  <h3>{this.props.red}</h3>
+                  <h3>{this.props.set.scores.red}</h3>
+                </Cell>
+                <Cell col={2}>
+                  <h3>VS</h3>
+                </Cell>
+                <Cell col={5}>
+                  <h3>{this.props.blue}</h3>
+                  <h3>{this.props.set.scores.blue}</h3>
+                </Cell>
+              </Grid>
             </CardText>
             <CardActions style={{textAlign: 'center'}}>
               <Button onClick={this.endGame} style={{color: '#fff'}}>End Game</Button>
@@ -62,10 +73,6 @@ export default class Game extends React.Component {
             </Button>
           </Cell>
         </Grid>
-        /* <div>
-
-
-        </div> */
       );
     }
     return (

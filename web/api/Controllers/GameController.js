@@ -1,5 +1,6 @@
 const admin = require('firebase-admin');
 const serviceAccount = require('../../stephen-pong-firebase-adminsdk.key.json');
+// const gameUtils = require('../Utils/GameUtils.js');
 
 // TODO: Validate the objects before sending to firebase,
 // maybe create schema for games objetcs
@@ -105,8 +106,10 @@ class GameController {
     const that = this;
     let options = {
       gameId: params.idGame,
-      redScore: 0,
-      blueScore: 0
+      scores: {
+        red: 0,
+        blue: 0
+      }
     };
 
     for (let key in body) {
@@ -146,29 +149,56 @@ class GameController {
 
   markPoint(params, query) {
     const that = this;
-    let score = 'null';
-
-    if (query.player === 'red') {
-      score = 'redScore';
-    } else if (query.player === 'blue') {
-      score = 'blueScore';
-    }
 
     return new Promise(function(resolve, reject) {
-      const scoreRef = that.db.ref('sets/' + params.idSet).child(score);
+      const scoreRef = that.db.ref('sets/' + params.idSet + '/scores/');
+      let scores = {};
+      let activePlayer = '';
+      let passivePlayer = '';
 
-      scoreRef.transaction(function(currentScore) {
-        return (currentScore || 0) + 1;
-      }, function(error, committed, newScore) {
-        if (error) {
-          reject(Error('Firebase markPoint() error: ', error));
-        } if (!committed) {
-          reject(Error('Firebase markPoint() returned something strange: ', newScore.val()));
-        } else {
-          resolve({
-            [score]: newScore.val()
+      if (query.player === 'red') {
+        activePlayer = 'red';
+        passivePlayer = 'blue';
+      } else if (query.player === 'blue') {
+        activePlayer = 'blue';
+        passivePlayer = 'red';
+      }
+
+      scoreRef.once('value').then(function(res) {
+        res.forEach(function(obj) {
+          scores[obj.key] = obj.val();
+        });
+        if (scores[activePlayer] < 10) {
+          scores[activePlayer] = scores[activePlayer] + 1;
+          scoreRef.update(scores, function(error) {
+            if (error) {
+              reject(Error('Firebase updateGame() error: ', error));
+            } else {
+              console.log('Player ' + activePlayer + ' +1');
+            }
+          });
+        } else if ((scores[activePlayer] >= 10)
+        && ((scores[activePlayer] - scores[passivePlayer]) < 1)) {
+          scores[activePlayer] = scores[activePlayer] + 1;
+          scoreRef.update(scores, function(error) {
+            if (error) {
+              reject(Error('Firebase updateGame() error: ', error));
+            } else {
+              console.log('Player ' + activePlayer + ' +1');
+            }
+          });
+        } else if ((scores[activePlayer] >= 10)
+        && ((scores[activePlayer] - scores[passivePlayer]) >= 1)) {
+          scores[activePlayer] = scores[activePlayer] + 1;
+          scoreRef.update(scores, function(error) {
+            if (error) {
+              reject(Error('Firebase updateGame() error: ', error));
+            } else {
+              console.log('Player ' + activePlayer + ' won');
+            }
           });
         }
+        resolve(scores);
       });
     });
   }
