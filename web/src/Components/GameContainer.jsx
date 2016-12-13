@@ -14,6 +14,7 @@ export default class GameContainer extends React.Component {
     this.handleBluePlayerConfirm = this.handleBluePlayerConfirm.bind(this);
     this.handleRedPoint = this.handleRedPoint.bind(this);
     this.handleBluePoint = this.handleBluePoint.bind(this);
+    this.handleNewSet = this.handleNewSet.bind(this);
     this.startGame = this.startGame.bind(this);
     this.endGame = this.endGame.bind(this);
     this.state = {
@@ -73,6 +74,38 @@ export default class GameContainer extends React.Component {
         if (!error && response.statusCode === 200) {
           console.log(body);
         }
+      }
+    );
+  }
+
+  handleNewSet() {
+    const that = this;
+    // TODO: CHANGE RED FOR BLUE!!!!
+    fb.removeBinding(this.state.setBind);
+
+    request.post(
+      'http://localhost:3000/api/game/' + that.state.gameId,
+      { json: {
+        red: that.state.red,
+        blue: that.state.blue,
+        serves: 'red'
+      } },
+      function(error, response, body) {
+        if (!error && response.statusCode === 200) {
+          // We update the state with the new setId
+          // We bind the set object from firebase with the state
+          const setBind = fb.syncState('sets/' + body, {
+            context: that,
+            state: 'set',
+            asArray: false
+          });
+          that.setState({
+            setId: body,
+            setBind: setBind,
+            currentSet: 0
+          });
+        }
+        console.log('Nuevo set añadido');
       }
     );
   }
@@ -188,6 +221,7 @@ export default class GameContainer extends React.Component {
               set={set}
               handleRedPoint={this.handleRedPoint}
               handleBluePoint={this.handleBluePoint}
+              handleNewSet={this.handleNewSet}
               endGame={this.endGame}
             />
           </div>

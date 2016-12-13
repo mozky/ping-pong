@@ -151,10 +151,13 @@ class GameController {
     const that = this;
 
     return new Promise(function(resolve, reject) {
-      const scoreRef = that.db.ref('sets/' + params.idSet + '/scores/');
+      const setRef = that.db.ref('sets/' + params.idSet);
+      const gameRef = that.db.ref('games/' + params.idGame);
       let scores = {};
+      let updates = {};
       let activePlayer = '';
       let passivePlayer = '';
+      let winnerName = '';
 
       if (query.player === 'red') {
         activePlayer = 'red';
@@ -164,15 +167,15 @@ class GameController {
         passivePlayer = 'red';
       }
 
-      scoreRef.once('value').then(function(res) {
+      setRef.child('scores').once('value').then(function(res) {
         res.forEach(function(obj) {
           scores[obj.key] = obj.val();
         });
         if (scores[activePlayer] < 10) {
           scores[activePlayer] = scores[activePlayer] + 1;
-          scoreRef.update(scores, function(error) {
+          setRef.child('scores').update(scores, function(error) {
             if (error) {
-              reject(Error('Firebase updateGame() error: ', error));
+              reject(Error('Firebase markPoint() error: ', error));
             } else {
               console.log('Player ' + activePlayer + ' +1');
             }
@@ -180,9 +183,9 @@ class GameController {
         } else if ((scores[activePlayer] >= 10)
         && ((scores[activePlayer] - scores[passivePlayer]) < 1)) {
           scores[activePlayer] = scores[activePlayer] + 1;
-          scoreRef.update(scores, function(error) {
+          setRef.child('scores').update(scores, function(error) {
             if (error) {
-              reject(Error('Firebase updateGame() error: ', error));
+              reject(Error('Firebase markPoint() error: ', error));
             } else {
               console.log('Player ' + activePlayer + ' +1');
             }
@@ -190,12 +193,30 @@ class GameController {
         } else if ((scores[activePlayer] >= 10)
         && ((scores[activePlayer] - scores[passivePlayer]) >= 1)) {
           scores[activePlayer] = scores[activePlayer] + 1;
-          scoreRef.update(scores, function(error) {
+          updates['scores'] = scores;
+          updates['winner'] = activePlayer;
+          setRef.update(updates, function(error) {
             if (error) {
-              reject(Error('Firebase updateGame() error: ', error));
+              reject(Error('Firebase markPoint() error: ', error));
             } else {
               console.log('Player ' + activePlayer + ' won');
             }
+          });
+
+          setRef.once('value').then(function(resp) {
+            resp.forEach(function(obj) {
+              if (obj.key === activePlayer) {
+                winnerName = obj.val();
+                // Adds the name of the winner player to the game.set key
+                gameRef.child('sets').update({[params.idSet]: winnerName}, function(error) {
+                  if (error) {
+                    reject(Error('Firebase markPoint() error: ', error));
+                  } else {
+                    console.log(winnerName + ' set as winner');
+                  }
+                });
+              }
+            });
           });
         }
         resolve(scores);

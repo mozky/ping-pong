@@ -6,6 +6,7 @@ export default class Game extends React.Component {
     super(props);
     this.redPoint = this.redPoint.bind(this);
     this.bluePoint = this.bluePoint.bind(this);
+    this.newSet = this.newSet.bind(this);
     this.endGame = this.endGame.bind(this);
   }
 
@@ -17,12 +18,21 @@ export default class Game extends React.Component {
     this.props.handleBluePoint();
   }
 
+  newSet() {
+    this.props.handleNewSet();
+  }
+
   endGame() {
     this.props.endGame();
   }
 
   render() {
     // let scores;
+    let NewSetButton = '';
+    if (this.props.set.winner) {
+      NewSetButton = (<Button onClick={this.newSet} style={{color: '#fff'}}>New Set</Button>);
+    }
+
     if (this.props.set.scores !== undefined) {
       // scores = this.props.game.sets.map((game, index) => {
       //   if (index === this.props.game.currentSet) {
@@ -62,6 +72,7 @@ export default class Game extends React.Component {
               </Grid>
             </CardText>
             <CardActions style={{textAlign: 'center'}}>
+              { NewSetButton }
               <Button onClick={this.endGame} style={{color: '#fff'}}>End Game</Button>
             </CardActions>
           </Cell>
@@ -91,5 +102,6 @@ Game.propTypes = {
   set: React.PropTypes.object,
   handleRedPoint: React.PropTypes.func.isRequired,
   handleBluePoint: React.PropTypes.func.isRequired,
+  handleNewSet: React.PropTypes.func.isRequired,
   endGame: React.PropTypes.func.isRequired
 };

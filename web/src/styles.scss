@@ -239,3 +239,26 @@ html, body {
 .pp-app .mdl-menu__container {
   z-index: 99;
 }
+
+// CUSTOM SASS
+
+.mdl-card:first-child {
+  background-color: #EF5350;
+}
+
+.mdl-card:nth-child(2) {
+  background-color: #5C6BC0;
+}
+
+.mdl-card:nth-child(2) {
+  background-color: #5C6BC0;
+}
+
+.winner > * {
+  color: gold;
+}
+
+.loser {
+  font-weight: lighter;
+  opacity: 0.5;
+}
