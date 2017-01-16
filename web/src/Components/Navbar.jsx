@@ -7,6 +7,7 @@ export default class Navbar extends React.Component {
     this.state = {logedIn: false};
   }
   render() {
+    const username = this.props.user.displayName;
     return (
       <Header style={{backgroundColor: '#424242'}} title={
         <a href="/">
@@ -14,6 +15,7 @@ export default class Navbar extends React.Component {
         </a>
       }>
         <Navigation>
+          <p>Hi, {username}</p>
           <a href="#">Stats</a>
           <a href="#">Backroom</a>
           <a href="#">Contact</a>
@@ -22,3 +24,7 @@ export default class Navbar extends React.Component {
     );
   }
 }
+
+Navbar.propTypes = {
+  user: React.PropTypes.object.isRequired
+};

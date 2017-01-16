@@ -9,7 +9,7 @@ module.exports = {
   devtool: 'eval-source-map',
   entry: path.join(__dirname, 'src/main.js'),
   output: {
-    path: path.join(__dirname, 'builds/'),
+    path: path.join(__dirname, 'builds'),
     filename: 'bundle.js',
     chunkFilename: '[name].chunk.js'
   },

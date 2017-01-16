@@ -16,42 +16,12 @@ export default class GamesFeed extends React.Component {
     this.props.newGame();
   }
 
-  login() {
-
-  }
-
   componentWillMount() {
     /*
     * Here we call 'bindToState', which will update
     * our local 'juegos' state whenever our 'games'
     * Firebase endpoint changes.
     */
-    // const userHandler = function(error, user) {
-    //   if (error) console.log(error);
-    //   console.log('User Creado', user);
-    // };
-    //
-    // fb.createUser({
-    //   email: 'bobtony2@firebase.com',
-    //   password: 'correcthorsebatterystaple',
-    // }, userHandler);
-
-    const authHandler = function(error, user) {
-      if (error) console.log(error);
-      console.log('User Authenticado', user);
-      user.updateProfile({
-        displayName: 'Tony Bob'
-      }).then(function() {
-        console.log('Se actualizo');
-      }, function(error) {
-        console.log(error);
-      });
-    };
-
-    fb.authWithPassword({
-      email: 'bobtony2@firebase.com',
-      password: 'correcthorsebatterystaple'
-    }, authHandler);
 
     const gamesBind = fb.bindToState('games', {
       context: this,
