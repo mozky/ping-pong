@@ -23,9 +23,9 @@ export default class App extends React.Component {
     };
   }
 
-  handleLoginAttempt(username, pin) {
+  handleLoginAttempt(email, pin) {
     const that = this;
-    console.log('handleLoginAttempt', username, pin);
+    console.log('handleLoginAttempt', email, pin);
     const authHandler = function(error, user) {
       if (error) console.log(error);
       console.log('User authenticated', user);
@@ -35,7 +35,7 @@ export default class App extends React.Component {
     };
 
     fb.authWithPassword({
-      email: username,
+      email: email,
       password: pin
     }, authHandler);
   }

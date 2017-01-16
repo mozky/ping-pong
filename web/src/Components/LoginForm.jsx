@@ -4,16 +4,16 @@ export default class LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
+      email: '',
       pin: ''
     };
-    this.handleUsernameChange = this.handleUsernameChange.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePinChange = this.handlePinChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleUsernameChange(event) {
-    this.setState({username: event.target.value});
+  handleEmailChange(event) {
+    this.setState({email: event.target.value});
   }
 
   handlePinChange(event) {
@@ -23,17 +23,17 @@ export default class LoginForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     console.log('A form was submitted');
-    this.props.onSubmit(this.state.username, this.state.pin);
+    this.props.onSubmit(this.state.email, this.state.pin);
   }
 
   render() {
     return (
       <form className="login-form" onSubmit={this.handleSubmit}>
         <input
-          type="text"
-          placeholder="username"
-          value={this.state.username}
-          onChange={this.handleUsernameChange} />
+          type="email"
+          placeholder="email"
+          value={this.state.email}
+          onChange={this.handleEmailChange} />
         <input
           type="password"
           placeholder="password"
