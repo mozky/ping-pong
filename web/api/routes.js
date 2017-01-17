@@ -67,5 +67,14 @@ routes.put('/game/:idGame', function(req, res) {
   });
 });
 
+routes.post('/table/:idTable', function(req, res) {
+  GC.markTablePoint(req.params, req.body).then(function(response) {
+    res.status(200).json(response);
+  }, function(error) {
+    console.error('API Error ->', req.method, req.url, '@', new Date(), error);
+    res.status(503).send('Bad Request');
+  })
+})
+
 
 module.exports = routes;

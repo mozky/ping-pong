@@ -223,6 +223,52 @@ class GameController {
       });
     });
   }
+
+  markTablePoint(params, body) {
+    // const that = this;
+    // let options = {
+    //   gameId: params.idGame,
+    //   scores: {
+    //     red: 0,
+    //     blue: 0
+    //   }
+    // };
+    //
+    // for (let key in body) {
+    //   switch (key) {
+    //     case 'red':
+    //       options.red = body[key];
+    //       break;
+    //     case 'blue':
+    //       options.blue = body[key];
+    //       break;
+    //     case 'serves':
+    //       options.serves = body[key];
+    //       break;
+    //     default:
+    //       console.log('unknown key: ', key);
+    //   }
+    // }
+
+    return new Promise(function(resolve, reject) {
+      // const gameSetsRef = that.db.ref('games').child(params.idGame + '/sets');
+      // const setRef = that.db.ref('sets').push();
+      //
+      // options['createTime'] = new Date().toISOString();
+      // setRef.set(options);
+      //
+      // gameSetsRef.update({
+      //   [setRef.key]: false
+      // }, function(error) {
+      //   if (error) {
+      //     reject(Error('Firebase addSet() error: ', error));
+      //   } else {
+      //     resolve(setRef.key);
+      //   }
+      resolve('TODO');
+      // });
+    });
+  }
 }
 
 module.exports = GameController;
