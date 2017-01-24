@@ -225,48 +225,34 @@ class GameController {
   }
 
   markTablePoint(params, body) {
-    // const that = this;
-    // let options = {
-    //   gameId: params.idGame,
-    //   scores: {
-    //     red: 0,
-    //     blue: 0
-    //   }
-    // };
-    //
-    // for (let key in body) {
-    //   switch (key) {
-    //     case 'red':
-    //       options.red = body[key];
-    //       break;
-    //     case 'blue':
-    //       options.blue = body[key];
-    //       break;
-    //     case 'serves':
-    //       options.serves = body[key];
-    //       break;
-    //     default:
-    //       console.log('unknown key: ', key);
-    //   }
-    // }
+    const that = this;
+    const player = params.player;
 
     return new Promise(function(resolve, reject) {
-      // const gameSetsRef = that.db.ref('games').child(params.idGame + '/sets');
-      // const setRef = that.db.ref('sets').push();
-      //
-      // options['createTime'] = new Date().toISOString();
-      // setRef.set(options);
-      //
-      // gameSetsRef.update({
-      //   [setRef.key]: false
-      // }, function(error) {
-      //   if (error) {
-      //     reject(Error('Firebase addSet() error: ', error));
-      //   } else {
-      //     resolve(setRef.key);
-      //   }
-      resolve('TODO');
-      // });
+      const gameRef = that.db.ref('/games');
+      // Fetch the id of the current game
+      gameRef.limitToLast(1).once('value', function(snapshot) {
+        const idGame = Object.keys(snapshot.val())[0];
+        // Fetch the id of the current set
+        that.db.ref('/games/' + idGame + '/sets').limitToLast(1).once('value', function(snap) {
+          const idSet = Object.keys(snap.val())[0];
+          const params = {
+            idSet,
+            idGame
+          };
+          const query = {
+            player
+          };
+          that.markPoint(params, query).then(function(response) {
+            console.log(response);
+            resolve('Point marked...');
+          }, function(error) {
+            console.error('Point not marked...');
+            reject(Error('Firebase markTablePoint() error: ', error));
+          })
+
+        });
+      });
     });
   }
 }

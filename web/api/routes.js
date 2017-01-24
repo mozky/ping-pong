@@ -67,7 +67,7 @@ routes.put('/game/:idGame', function(req, res) {
   });
 });
 
-routes.post('/table/:idTable', function(req, res) {
+routes.post('/point/:player', function(req, res) {
   GC.markTablePoint(req.params, req.body).then(function(response) {
     res.status(200).json(response);
   }, function(error) {
